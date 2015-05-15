@@ -1,0 +1,10 @@
+*.class
+*.apk
+bin/
+gen/
+.settings/
+proguard/
+*.classpath
+/do_UMengAnalytics/do_UMengAnalytics.zip
+/do_UMengAnalytics/do_build.xml
+/do_UMengAnalytics/libs/docore.jar
