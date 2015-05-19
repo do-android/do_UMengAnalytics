@@ -5,12 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.json.JSONObject;
+
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 
 import core.DoServiceContainer;
-import core.helper.jsonparse.DoJsonNode;
-import core.helper.jsonparse.DoJsonValue;
+import core.helper.DoJsonHelper;
 import core.interfaces.DoIScriptEngine;
 import core.object.DoInvokeResult;
 import core.object.DoSingletonModule;
@@ -37,7 +38,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public boolean invokeSyncMethod(String _methodName, DoJsonNode _dictParas,
+	public boolean invokeSyncMethod(String _methodName, JSONObject _dictParas,
 			DoIScriptEngine _scriptEngine, DoInvokeResult _invokeResult)
 			throws Exception {
 		if ("beginPageLog".equals(_methodName)) {
@@ -84,7 +85,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * 获取DoInvokeResult对象方式new DoInvokeResult(this.getUniqueKey());
 	 */
 	@Override
-	public boolean invokeAsyncMethod(String _methodName, DoJsonNode _dictParas,
+	public boolean invokeAsyncMethod(String _methodName, JSONObject _dictParas,
 			DoIScriptEngine _scriptEngine, String _callbackFuncName)throws Exception {
 		//...do something
 		return super.invokeAsyncMethod(_methodName, _dictParas, _scriptEngine, _callbackFuncName);
@@ -97,9 +98,9 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void beginPageLog(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void beginPageLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		String pageName = _dictParas.getOneText("pageName", "");
+		String pageName = DoJsonHelper.getString(_dictParas, "pageName", "");
 		MobclickAgent.onPageStart(pageName);
 	}
 
@@ -110,9 +111,9 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void endPageLog(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void endPageLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		String pageName = _dictParas.getOneText("pageName", "");
+		String pageName = DoJsonHelper.getString(_dictParas, "pageName", "");
 		MobclickAgent.onPageEnd(pageName); 
 	}
 
@@ -123,16 +124,16 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void eventLog(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void eventLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		String id = _dictParas.getOneText("id", "");
-		DoJsonValue data  = _dictParas.getOneValue("data");
-		Map<String,DoJsonValue> keyValues = data.getNode().getAllKeyValues();
-		Iterator<Entry<String, DoJsonValue>> iterator = keyValues.entrySet().iterator();
+		String id = DoJsonHelper.getString(_dictParas, "id", "");
+		JSONObject data  = DoJsonHelper.getJSONObject(_dictParas, "data");
+		Map<String,Object> keyValues = DoJsonHelper.getAllKeyValues(data);
+		Iterator<Entry<String, Object>> iterator = keyValues.entrySet().iterator();
 		HashMap<String,String> map = new HashMap<String,String>();
 		while(iterator.hasNext()){
-			Entry<String, DoJsonValue> entry = iterator.next();
-			map.put(entry.getKey(),entry.getValue().getText(""));
+			Entry<String, Object> entry = iterator.next();
+			map.put(entry.getKey(),DoJsonHelper.getText(entry.getValue(), ""));
 		}
 		MobclickAgent.onEvent(DoServiceContainer.getPageViewFactory().getAppContext(), id, map);    
 	}
@@ -144,17 +145,17 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void eventValueLog(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void eventValueLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		String id = _dictParas.getOneText("id", "");
-		DoJsonValue data  = _dictParas.getOneValue("data");
-		int counter  = _dictParas.getOneInteger("counter",0);
-		Map<String,DoJsonValue> keyValues = data.getNode().getAllKeyValues();
-		Iterator<Entry<String, DoJsonValue>> iterator = keyValues.entrySet().iterator();
+		String id = DoJsonHelper.getString(_dictParas, "id", "");
+		JSONObject data  = DoJsonHelper.getJSONObject(_dictParas, "data");
+		int counter  = DoJsonHelper.getInt(_dictParas, "counter",0);
+		Map<String,Object> keyValues = DoJsonHelper.getAllKeyValues(data);
+		Iterator<Entry<String, Object>> iterator = keyValues.entrySet().iterator();
 		HashMap<String,String> map_value = new HashMap<String,String>();
 		while(iterator.hasNext()){
-			Entry<String, DoJsonValue> entry = iterator.next();
-			map_value.put(entry.getKey(),entry.getValue().getText(""));
+			Entry<String, Object> entry = iterator.next();
+			map_value.put(entry.getKey(),DoJsonHelper.getText(entry.getValue(), ""));
 		}
 		MobclickAgent.onEventValue(DoServiceContainer.getPageViewFactory().getAppContext(), id, map_value, counter);
 	}
@@ -166,9 +167,9 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void readConfig(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void readConfig(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		String configID = _dictParas.getOneText("configID", "");
+		String configID = DoJsonHelper.getString(_dictParas, "configID", "");
 		String value = MobclickAgent.getConfigParams(DoServiceContainer.getPageViewFactory().getAppContext(), configID);
 		_invokeResult.setResultText(value);
 	}
@@ -180,9 +181,9 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void setCrashReportEnabled(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void setCrashReportEnabled(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		boolean value = _dictParas.getOneBoolean("value", true);
+		boolean value = DoJsonHelper.getBoolean(_dictParas, "value", true);
 		MobclickAgent.setCatchUncaughtExceptions(value);
 	}
 
@@ -193,9 +194,9 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	 * @_invokeResult 用于返回方法结果对象
 	 */
 	@Override
-	public void setEncryptLog(DoJsonNode _dictParas, DoIScriptEngine _scriptEngine,
+	public void setEncryptLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine,
 			DoInvokeResult _invokeResult) throws Exception {
-		boolean value = _dictParas.getOneBoolean("value", true);
+		boolean value = DoJsonHelper.getBoolean(_dictParas, "value", true);
 		AnalyticsConfig.enableEncrypt(value);
 	}
 }
