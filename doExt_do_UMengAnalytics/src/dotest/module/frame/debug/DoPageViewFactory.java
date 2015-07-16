@@ -8,7 +8,7 @@ public class DoPageViewFactory implements DoIPageViewFactory {
 	private Activity currentActivity;
 	
 	@Override
-	public void closePage(String arg0, String arg1) {
+	public void closePage(String arg0, String arg1, int layer) {
 		// TODO Auto-generated method stub
 
 	}
