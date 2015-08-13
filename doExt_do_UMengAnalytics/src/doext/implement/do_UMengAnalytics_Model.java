@@ -102,6 +102,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 			DoInvokeResult _invokeResult) throws Exception {
 		String pageName = DoJsonHelper.getString(_dictParas, "pageName", "");
 		MobclickAgent.onPageStart(pageName);
+		MobclickAgent.onResume(DoServiceContainer.getPageViewFactory().getAppContext());
 	}
 
 	/**
@@ -115,6 +116,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 			DoInvokeResult _invokeResult) throws Exception {
 		String pageName = DoJsonHelper.getString(_dictParas, "pageName", "");
 		MobclickAgent.onPageEnd(pageName); 
+		MobclickAgent.onPause(DoServiceContainer.getPageViewFactory().getAppContext());
 	}
 
 	/**

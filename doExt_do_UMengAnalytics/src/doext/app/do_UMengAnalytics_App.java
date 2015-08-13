@@ -26,10 +26,18 @@ public class do_UMengAnalytics_App implements DoIAppDelegate {
 	
 	@Override
 	public void onCreate(Context context) {
+		MobclickAgent.setDebugMode(true);
+		MobclickAgent.openActivityDurationTrack(false);
 		MobclickAgent.updateOnlineConfig(context);
 	}
 	
 	public String getModuleTypeID() {
 		return "do_UMengAnalytics";
+	}
+
+	@Override
+	public String getTypeID() {
+		// TODO Auto-generated method stub
+		return getModuleTypeID();
 	}
 }
