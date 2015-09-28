@@ -32,7 +32,7 @@
         </activity>
         
         <meta-data android:value="5555aaff67e58e4e92002c8e" android:name="UMENG_APPKEY"/>
-		<meta-data android:value="Channel_ID" android:name="UMENG_CHANNEL"/>
+		<meta-data android:value="doChannelId" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>
