@@ -12,17 +12,15 @@ import core.object.DoUIContainer;
 import core.object.DoUIModule;
 
 public class DoPage implements DoIPage {
-	
+
 	@Override
-	public DoMultitonModule createMultitonModule(String arg0, String arg1)
-			throws Exception {
+	public DoMultitonModule createMultitonModule(String arg0, String arg1) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
-	public DoUIModule createUIModule(DoUIContainer arg0, JSONObject arg1)
-			throws Exception {
+	public DoUIModule createUIModule(DoUIContainer arg0, JSONObject arg1) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -36,7 +34,7 @@ public class DoPage implements DoIPage {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -49,6 +47,18 @@ public class DoPage implements DoIPage {
 	public String getData() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getDesignScreenHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDesignScreenWidth() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -88,36 +98,6 @@ public class DoPage implements DoIPage {
 	}
 
 	@Override
-	public void loadRootUiContainer() throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadScriptEngine(String arg0, String arg1) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeUIModule(DoUIModule arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setData(String arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setFullScreen(boolean isFullScreen) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean isFullScreen() {
 		// TODO Auto-generated method stub
 		return false;
@@ -130,9 +110,46 @@ public class DoPage implements DoIPage {
 	}
 
 	@Override
+	public void loadRootUiContainer() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadScriptEngine(String arg0, String arg1) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeUIModule(DoUIModule arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setData(String arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setDesignScreenResolution(int arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFullScreen(boolean arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void setTransparent(boolean arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
