@@ -26,8 +26,6 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 
 	public do_UMengAnalytics_Model() throws Exception {
 		super();
-		MobclickAgent.setDebugMode(true);
-//		MobclickAgent.openActivityDurationTrack(false);
 	}
 
 	/**
