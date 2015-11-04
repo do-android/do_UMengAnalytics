@@ -2,6 +2,7 @@ package doext.app;
 import android.content.Context;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 
 import core.interfaces.DoIAppDelegate;
 
@@ -28,7 +29,7 @@ public class do_UMengAnalytics_App implements DoIAppDelegate {
 	public void onCreate(Context context) {
 		MobclickAgent.setDebugMode(true);
 		MobclickAgent.openActivityDurationTrack(false);
-		MobclickAgent.updateOnlineConfig(context);
+		OnlineConfigAgent.getInstance().updateOnlineConfig(context);
 	}
 	
 	public String getModuleTypeID() {

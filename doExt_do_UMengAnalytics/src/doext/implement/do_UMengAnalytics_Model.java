@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 
 import core.DoServiceContainer;
 import core.helper.DoJsonHelper;
@@ -173,7 +174,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	@Override
 	public void readConfig(JSONObject _dictParas, DoIScriptEngine _scriptEngine, DoInvokeResult _invokeResult) throws Exception {
 		String configID = DoJsonHelper.getString(_dictParas, "configID", "");
-		String value = MobclickAgent.getConfigParams(DoServiceContainer.getPageViewFactory().getAppContext(), configID);
+		String value = OnlineConfigAgent.getInstance().getConfigParams(DoServiceContainer.getPageViewFactory().getAppContext(), configID);
 		_invokeResult.setResultText(value);
 	}
 
