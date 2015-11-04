@@ -188,7 +188,6 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	public void setCrashReportEnabled(JSONObject _dictParas, DoIScriptEngine _scriptEngine, DoInvokeResult _invokeResult) throws Exception {
 		boolean value = DoJsonHelper.getBoolean(_dictParas, "value", true);
 		MobclickAgent.setCatchUncaughtExceptions(value);
-		throw new RuntimeException("123.substring(10) 崩溃了");
 	}
 
 	/**
