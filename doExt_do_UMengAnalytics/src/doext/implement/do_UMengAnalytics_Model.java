@@ -1,8 +1,10 @@
 package doext.implement;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.umeng.analytics.AnalyticsConfig;
@@ -129,7 +131,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 		String id = DoJsonHelper.getString(_dictParas, "id", "");
 		JSONObject data = DoJsonHelper.getJSONObject(_dictParas, "data");
 		HashMap<String, String> map = new HashMap<String, String>();
-		Map<String, Object> keyValues = DoJsonHelper.getAllKeyValues(data);
+		Map<String, Object> keyValues = getAllKeyValues(data);
 		if (keyValues != null) {
 			for (String name : keyValues.keySet()) {
 				if (name == null || name.length() <= 0)
@@ -137,7 +139,12 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 				map.put(name, DoJsonHelper.getText(keyValues.get(name), ""));
 			}
 		}
-		MobclickAgent.onEvent(DoServiceContainer.getPageViewFactory().getAppContext(), id, map);
+
+		if (map.size() > 0) {
+			MobclickAgent.onEvent(DoServiceContainer.getPageViewFactory().getAppContext(), id, map);
+		} else {
+			MobclickAgent.onEvent(DoServiceContainer.getPageViewFactory().getAppContext(), id);
+		}
 	}
 
 	/**
@@ -153,7 +160,7 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 		JSONObject data = DoJsonHelper.getJSONObject(_dictParas, "data");
 		int counter = DoJsonHelper.getInt(_dictParas, "counter", 0);
 		HashMap<String, String> map = new HashMap<String, String>();
-		Map<String, Object> keyValues = DoJsonHelper.getAllKeyValues(data);
+		Map<String, Object> keyValues = getAllKeyValues(data);
 		if (keyValues != null) {
 			for (String name : keyValues.keySet()) {
 				if (name == null || name.length() <= 0)
@@ -162,6 +169,21 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 			}
 		}
 		MobclickAgent.onEventValue(DoServiceContainer.getPageViewFactory().getAppContext(), id, map, counter);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Map<String, Object> getAllKeyValues(JSONObject _childeNode) throws JSONException {
+		if (_childeNode == null) {
+			return null;
+		}
+		Map<String, Object> allKeyValues = new HashMap<String, Object>();
+		Iterator _keys = _childeNode.keys();
+		while (_keys.hasNext()) {
+			String _key = _keys.next().toString();
+			Object _val = _childeNode.get(_key);
+			allKeyValues.put(_key, _val);
+		}
+		return allKeyValues;
 	}
 
 	/**
