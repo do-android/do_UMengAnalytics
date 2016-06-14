@@ -7,7 +7,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 
@@ -223,6 +222,8 @@ public class do_UMengAnalytics_Model extends DoSingletonModule implements do_UMe
 	@Override
 	public void setEncryptLog(JSONObject _dictParas, DoIScriptEngine _scriptEngine, DoInvokeResult _invokeResult) throws Exception {
 		boolean value = DoJsonHelper.getBoolean(_dictParas, "value", true);
-		AnalyticsConfig.enableEncrypt(value);
+		/** 设置是否对日志信息进行加密, 默认false(不加密). */
+		//AnalyticsConfig.enableEncrypt(value);//6.0.0版本以前
+		MobclickAgent.enableEncrypt(value);//6.0.0版本及以后
 	}
 }
