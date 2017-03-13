@@ -5,7 +5,7 @@
 	<property name="src" value="src/doext" />
 	<property name="classes" value="${buildDir}/classes" />
 	<!-- 替换为您本地Android路径JAR-->
-	<property name="androidJAR" value="G:/deviceOne/doLib/lib/android.jar"/>
+	<property name="androidJAR" value="D:/git/local/deviceone/doLib/lib/android.jar"/>
 
 	<target name="init">
 		<delete dir="${projectName}.zip"/>
